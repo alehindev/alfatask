@@ -1,5 +1,6 @@
 package com.alehin.alpha.controller;
 
+import com.alehin.alpha.data.CurrencyRate;
 import com.alehin.alpha.exceptions.NotFoundException;
 import com.alehin.alpha.services.GifService;
 import com.alehin.alpha.services.RatesService;
@@ -43,6 +44,16 @@ public class AppController {
         this.gifService = gifService;
     }
 
+    //CHECK OF RATES SERVICE
+
+    @GetMapping("today-rate")
+    public CurrencyRate getTodayRate(){
+        return ratesService.getTodayRates();
+    }
+    @GetMapping("yester-rate")
+    public CurrencyRate getYesterRate(){
+        return ratesService.getYesterRates();
+    }
 
     //api get request
     @GetMapping("get-gif/{code}")

@@ -1,5 +1,7 @@
 package com.alehin.alpha.data;
 
+import com.alehin.alpha.exceptions.NotFoundException;
+
 import java.util.Map;
 
 public class CurrencyRate {
@@ -61,5 +63,11 @@ public class CurrencyRate {
         this.rates = rates;
     }
 
-
+    public Double getCurrencyRate(String code){
+        if (rates.containsKey(code)){
+            return rates.get(code);
+        } else {
+            throw new NotFoundException();
+        }
+    }
 }
