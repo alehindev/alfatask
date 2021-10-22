@@ -2,6 +2,7 @@ package com.alehin.alpha.services;
 
 import com.alehin.alpha.clients.FeignRatesClient;
 import com.alehin.alpha.data.CurrencyRate;
+import com.alehin.alpha.exceptions.NotFoundException;
 import com.alehin.alpha.exceptions.SameTimeRatesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,6 +58,10 @@ public class RatesService {
         if(yesterRates.getTimestamp() == todayRates.getTimestamp()){
             throw new SameTimeRatesException();
         }
+        if(yesterRates.getRates().get(code).isNaN()){
+            throw new NotFoundException();
+        }
+
         if(yesterRates.getCurrencyRate(code)-todayRates.getCurrencyRate(code) > Double.MIN_VALUE){
             return 1;
         }

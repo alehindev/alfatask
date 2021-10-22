@@ -3,10 +3,12 @@ package com.alehin.alpha.services;
 import com.alehin.alpha.clients.FeignGifClient;
 import com.alehin.alpha.clients.FeignRatesClient;
 import com.alehin.alpha.exceptions.BadLabel;
+import com.alehin.alpha.exceptions.NotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -39,15 +41,14 @@ public class GifService {
         if(label.equalsIgnoreCase(dummy) || label.equalsIgnoreCase(rich)) {
 
             ResponseEntity<Map> response = GifClient.getRandomGif(api_key, label);
-            if(response.getStatusCodeValue() != 200) {
+            if(response.getStatusCode() == HttpStatus.OK) {
                 Object objVal = response.getBody().get("data");
                 if (objVal instanceof LinkedHashMap){
                     resURI = ((LinkedHashMap<?, ?>) objVal).get("id").toString();
                     return resURI;
                 }
-
             }
-            throw new BadLabel();
+            throw new NotFoundException();
         }
         throw new BadLabel();
     }

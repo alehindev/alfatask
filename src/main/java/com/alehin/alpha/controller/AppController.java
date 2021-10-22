@@ -73,7 +73,7 @@ public class AppController {
                 throw new NotFoundException();
         }
         gifURI = gifService.getUriByLabel(codeLabel);
-        res = new ResponseEntity("<img src=\"https://media1.giphy.com/media/"+gifURI+"/giphy.gif\" />", HttpStatus.NOT_FOUND);
+        res = new ResponseEntity("<img src=\"https://media1.giphy.com/media/"+gifURI+"/giphy.gif\" />", HttpStatus.OK);
         return res;
     }
 
