@@ -25,3 +25,20 @@ Must Have
 Nice to Have
 
 1) Сборка и запуск Docker контейнера с этим сервисом
+
+---
+
+Endpoint:
+---  
+Получение gif по коду валюты:  
+
+```
+GET /api/v1/get-gif/{code}
+```
+Запуск jar файла:
+---
+```
+java -jar alpha-0.0.1-SNAPSHOT.jar
+```
+server port  = 8091 
+
